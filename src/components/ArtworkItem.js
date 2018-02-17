@@ -1,23 +1,30 @@
 import React from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 
 const Artwork = styled.div`
+  display: flex;
+  width: calc(33.3333% - 60px);
+  flex-direction: column;
   background: ${props => props.theme.colors.white};
   border: ${props => props.theme.space[2]}px;
   padding: ${props => props.theme.space[3]}px;
+  margin-bottom: 30px;
 
   img {
+    display: block;
     width: 100%;
   }
 `
 
 const ImageWrapper = styled.div`
   position: relative;
+  width: 100%;
 `
 
 const Favicon = styled.span`
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 20px;
   background: ${props => props.theme.colors.white};
   border-radius: 50%;
@@ -85,7 +92,7 @@ const Column = styled.div`
   ${props => props.right && "align-items: flex-end;"};
 `
 
-export default props => {
+const ArtworkItem = props => {
   const {
     artist,
     artwork_title,
@@ -138,3 +145,15 @@ export default props => {
     </Artwork>
   )
 }
+
+ArtworkItem.propTypes = {
+  artist: PropTypes.object,
+  artwork_title: PropTypes.string,
+  artwork_url: PropTypes.string,
+  category: PropTypes.string,
+  dimensions: PropTypes.object,
+  image_url: PropTypes.string,
+  product: PropTypes.object
+}
+
+export default ArtworkItem

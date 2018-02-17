@@ -19,7 +19,11 @@ const Wrapper = styled.div`
   }
 `
 
-const List = styled.div``
+const List = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
 
 class ArtworksList extends PureComponent {
   componentWillMount() {
@@ -27,16 +31,28 @@ class ArtworksList extends PureComponent {
   }
 
   render() {
+    const { items } = this.props
+
     return (
       <Wrapper>
         <h1>Original Art for Sale</h1>
 
         <List>
-          <p>
-            Load Artworks via AJAX, Pull Artworks into Redux Store, and display
-            each Artworks data in a 'ArtworkItem' component
-          </p>
-          {/* <ArtworkItem /> */}
+          {
+            items &&
+            items.map((item, index) => (
+              <ArtworkItem
+                key={index}
+                artist={item.artist}
+                artwork_title={item.artwork_title}
+                artwork_url={item.artwork_url}
+                category={item.category}
+                dimensions={item.dimensions}
+                image_url={item.image_url}
+                product={item.product}
+              />
+            ))
+          }
         </List>
       </Wrapper>
     )
@@ -44,7 +60,8 @@ class ArtworksList extends PureComponent {
 }
 
 ArtworksList.propTypes = {
-  artworksActions: PropTypes.object
+  artworksActions: PropTypes.object,
+  items: PropTypes.array
 };
 
 function mapStateToProps(state) {
