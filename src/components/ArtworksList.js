@@ -36,6 +36,7 @@ class ArtworksList extends PureComponent {
             Load Artworks via AJAX, Pull Artworks into Redux Store, and display
             each Artworks data in a 'ArtworkItem' component
           </p>
+          {/* <ArtworkItem /> */}
         </List>
       </Wrapper>
     )
@@ -48,7 +49,7 @@ ArtworksList.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    items: state.items
+    items: state.artworks.items
   }
 }
 

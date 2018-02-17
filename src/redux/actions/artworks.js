@@ -7,7 +7,6 @@ export function fetchStart() {
     return fetch(ENDPOINT_URL)
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         dispatch(fetchSuccess(json))
       })
       .catch(err => console.error(err.message))
@@ -17,7 +16,7 @@ export function fetchStart() {
 export function fetchSuccess(json) {
   return {
     type: types.FETCH_SUCCESS,
-    data: json
+    items: json
   }
 }
 

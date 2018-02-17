@@ -1,4 +1,4 @@
-import * as actions from "../actions/artworks"
+// import * as actions from "../actions/artworks"
 import {
   FETCH_START,
   FETCH_SUCCESS,
@@ -20,8 +20,9 @@ export default (state = initialState, action) => {
       console.log(`${FETCH_START} reducer`)
       return action;
     case FETCH_SUCCESS:
-      console.log(`${FETCH_SUCCESS} reducer`)
-      return action;
+      return Object.assign({}, state, {
+        items: action.items
+      })
     case UPDATE_SEARCH:
       console.log(`${UPDATE_SEARCH} reducer`)
       return action;
