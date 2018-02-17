@@ -1,5 +1,10 @@
 import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 import styled from "styled-components"
+
+import * as artworksActions from "../redux/actions/artworks"
 
 import ArtworkItem from "./ArtworkItem"
 
@@ -16,7 +21,11 @@ const Wrapper = styled.div`
 
 const List = styled.div``
 
-export default class ArtworksList extends PureComponent {
+class ArtworksList extends PureComponent {
+  componentWillMount() {
+    this.props.artworksActions.fetchStart()
+  }
+
   render() {
     return (
       <Wrapper>
@@ -32,3 +41,21 @@ export default class ArtworksList extends PureComponent {
     )
   }
 }
+
+ArtworksList.propTypes = {
+  artworksActions: PropTypes.object
+};
+
+function mapStateToProps(state) {
+  return {
+    items: state.items
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    artworksActions: bindActionCreators(artworksActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArtworksList)
