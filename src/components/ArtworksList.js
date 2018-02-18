@@ -29,13 +29,42 @@ const List = styled.div`
   }
 `
 
+const Message = styled.p`
+  margin-top: 30px;
+`
+
 class ArtworksList extends PureComponent {
   componentWillMount() {
     this.props.artworksActions.fetchStart()
   }
 
+  favoriteToggle = (itemId) => {
+    this.props.artworksActions.favoriteToggle(itemId)
+  }
+
+  renderArtworkItem = (item) => {
+    const { favorites } = this.props
+    const isFavorite = favorites.includes(item.artId)
+
+    return (
+      <ArtworkItem
+        key={item.artId}
+        artId={item.artId}
+        artist={item.artist}
+        artwork_title={item.artwork_title}
+        artwork_url={item.artwork_url}
+        category={item.category}
+        dimensions={item.dimensions}
+        image_url={item.image_url}
+        product={item.product}
+        isFavorite={isFavorite}
+        favoriteToggle={this.favoriteToggle}
+      />
+    )
+  }
+
   render() {
-    const { items, search } = this.props
+    const { items, search, favorites } = this.props
     const itemsMatchingSearch = items.filter(({artwork_title}) => {
       const searchLower = search.toLowerCase()
       const titleLower = artwork_title.toLowerCase()
@@ -43,6 +72,8 @@ class ArtworksList extends PureComponent {
       return (titleLower.includes(searchLower)) ? true : false
     })
     const itemsMatchingSearchCount = itemsMatchingSearch.length
+
+    console.log(favorites)
 
     return (
       <Wrapper>
@@ -55,41 +86,19 @@ class ArtworksList extends PureComponent {
           }
           {
             (items && !search) &&
-            items.map(item => {
-              return (
-                <ArtworkItem
-                  key={item.artId}
-                  artist={item.artist}
-                  artwork_title={item.artwork_title}
-                  artwork_url={item.artwork_url}
-                  category={item.category}
-                  dimensions={item.dimensions}
-                  image_url={item.image_url}
-                  product={item.product}
-                />
-              )
-            })
+            items.map(item => (
+              this.renderArtworkItem(item)
+            ))
           }
           {
             (items && search) &&
-            itemsMatchingSearch.map(item => {
-              return (
-                <ArtworkItem
-                  key={item.artId}
-                  artist={item.artist}
-                  artwork_title={item.artwork_title}
-                  artwork_url={item.artwork_url}
-                  category={item.category}
-                  dimensions={item.dimensions}
-                  image_url={item.image_url}
-                  product={item.product}
-                />
-              )
-            })
+            itemsMatchingSearch.map(item => (
+              this.renderArtworkItem(item)
+            ))
           }
           {
             (items && itemsMatchingSearchCount === 0) &&
-            <p>No Artworks Available, matching "{search}".</p>
+            <Message>No Artworks Available, matching "{search}".</Message>
           }
         </List>
       </Wrapper>
@@ -100,13 +109,15 @@ class ArtworksList extends PureComponent {
 ArtworksList.propTypes = {
   artworksActions: PropTypes.object,
   items: PropTypes.array,
-  search: PropTypes.string
+  search: PropTypes.string,
+  favorites: PropTypes.array
 };
 
 function mapStateToProps(state) {
   return {
     items: state.artworks.items,
-    search: state.artworks.search
+    search: state.artworks.search,
+    favorites: state.artworks.favorites
   }
 }
 

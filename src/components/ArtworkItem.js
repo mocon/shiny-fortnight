@@ -124,6 +124,7 @@ const Column = styled.div`
 
 const ArtworkItem = props => {
   const {
+    artId,
     artist,
     artwork_title,
     artwork_url,
@@ -131,12 +132,18 @@ const ArtworkItem = props => {
     dimensions,
     image_url,
     product,
+    favoriteToggle,
+    isFavorite
   } = props
   return (
     <Artwork>
       <ImageWrapper>
         <img src={image_url} alt={artwork_title} />
-        <Favicon className="fa fa-heart" />
+        <Favicon
+          className="fa fa-heart"
+          liked={isFavorite}
+          onClick={() => {favoriteToggle(artId)}}
+        />
       </ImageWrapper>
       <Info>
         <Title>
@@ -177,13 +184,16 @@ const ArtworkItem = props => {
 }
 
 ArtworkItem.propTypes = {
+  artId: PropTypes.number,
   artist: PropTypes.object,
   artwork_title: PropTypes.string,
   artwork_url: PropTypes.string,
   category: PropTypes.string,
   dimensions: PropTypes.object,
   image_url: PropTypes.string,
-  product: PropTypes.object
+  product: PropTypes.object,
+  favoriteToggle: PropTypes.func,
+  isFavorite: PropTypes.bool
 }
 
 export default ArtworkItem

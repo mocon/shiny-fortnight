@@ -28,6 +28,9 @@ export function updateSearch(string) {
   }
 }
 
-export function favoriteToggle() {
-  //
+export function favoriteToggle(itemId) {
+  return {
+    type: types.FAVORITE_TOGGLE,
+    itemId: itemId
+  }
 }

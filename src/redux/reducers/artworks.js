@@ -9,7 +9,7 @@ import {
 export const initialState = {
   items: [], // Fetch Data
   search: "", // Search Input
-  favorites: {}, // ID's of Products
+  favorites: [], // ID's of Products
   isLoading: false,
   error: null,
 }
@@ -27,8 +27,22 @@ export default (state = initialState, action) => {
         search: action.search
       })
     case FAVORITE_TOGGLE:
-      console.log(`${FAVORITE_TOGGLE} reducer`)
-      return action;
+      let favorites = state.favorites;
+      const itExists = (favorites.includes(action.itemId)) ? true : false
+
+      if (itExists) {
+        const index = favorites.indexOf(action.itemId)
+
+        if (index > -1) {
+          favorites.splice(index, 1)
+        }
+      } else {
+        favorites.push(action.itemId)
+      }
+
+      return Object.assign({}, state, {
+        favorites: favorites
+      })
     default:
       return state
   }
