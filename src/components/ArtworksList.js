@@ -21,12 +21,8 @@ const Wrapper = styled.div`
 
 const List = styled.div`
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
   flex-wrap: wrap;
-
-  @media (max-width: 767px) {
-    justify-content: space-between;
-  }
 
   @media (max-width: 570px) {
     justify-content: stretch;
