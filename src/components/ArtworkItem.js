@@ -4,12 +4,42 @@ import styled from "styled-components"
 
 const Artwork = styled.div`
   display: flex;
-  width: calc(33.3333% - 60px);
+  flex: 1;
+  min-width: 26%;
+  max-width: calc(33.3333% - 60px);
   flex-direction: column;
   background: ${props => props.theme.colors.white};
   border: ${props => props.theme.space[2]}px;
   padding: ${props => props.theme.space[3]}px;
   margin-bottom: 30px;
+
+  &:nth-child(3n + 2) {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  @media (max-width: 767px) {
+    min-width: 40%;
+    max-width: calc(50% - 15px);
+
+    &:nth-child(3n + 2) {
+      margin: 0 0 30px;
+    }
+
+    &:nth-child(even) {
+      margin-left: 30px;
+    }
+  }
+
+  @media (max-width: 570px) {
+    display: block;
+    min-width: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+
+    &:nth-child(even) {
+      margin-left: 0;
+    }
+  }
 
   img {
     display: block;

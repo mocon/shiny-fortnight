@@ -21,8 +21,16 @@ const Wrapper = styled.div`
 
 const List = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: stretch;
   flex-wrap: wrap;
+
+  @media (max-width: 767px) {
+    justify-content: space-between;
+  }
+
+  @media (max-width: 570px) {
+    justify-content: stretch;
+  }
 `
 
 class ArtworksList extends PureComponent {
@@ -40,9 +48,9 @@ class ArtworksList extends PureComponent {
         <List>
           {
             items &&
-            items.map((item, index) => (
+            items.map(item => (
               <ArtworkItem
-                key={index}
+                key={item.artId}
                 artist={item.artist}
                 artwork_title={item.artwork_title}
                 artwork_url={item.artwork_url}
