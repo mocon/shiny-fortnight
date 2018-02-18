@@ -39,27 +39,61 @@ class ArtworksList extends PureComponent {
   }
 
   render() {
-    const { items } = this.props
+    const { items, search } = this.props
+    const itemsMatchingSearch = items.filter(({artwork_title}) => {
+      const searchLower = search.toLowerCase()
+      const titleLower = artwork_title.toLowerCase()
+
+      return (titleLower.includes(searchLower)) ? true : false
+    })
+    const itemsMatchingSearchCount = itemsMatchingSearch.length
 
     return (
       <Wrapper>
-        <h1>Original Art for Sale</h1>
+        <h1>Original Art {(search) ? `(${itemsMatchingSearchCount} piece${(itemsMatchingSearchCount !== 1) ? "s" : ""} matching "${search}")` : null} for Sale</h1>
 
         <List>
           {
-            items &&
-            items.map(item => (
-              <ArtworkItem
-                key={item.artId}
-                artist={item.artist}
-                artwork_title={item.artwork_title}
-                artwork_url={item.artwork_url}
-                category={item.category}
-                dimensions={item.dimensions}
-                image_url={item.image_url}
-                product={item.product}
-              />
-            ))
+            (!items) &&
+            <p>Loading...</p>
+          }
+          {
+            (items && !search) &&
+            items.map(item => {
+              return (
+                <ArtworkItem
+                  key={item.artId}
+                  artist={item.artist}
+                  artwork_title={item.artwork_title}
+                  artwork_url={item.artwork_url}
+                  category={item.category}
+                  dimensions={item.dimensions}
+                  image_url={item.image_url}
+                  product={item.product}
+                />
+              )
+            })
+          }
+          {
+            (items && search) &&
+            itemsMatchingSearch.map(item => {
+              return (
+                <ArtworkItem
+                  key={item.artId}
+                  artist={item.artist}
+                  artwork_title={item.artwork_title}
+                  artwork_url={item.artwork_url}
+                  category={item.category}
+                  dimensions={item.dimensions}
+                  image_url={item.image_url}
+                  product={item.product}
+                />
+              )
+            })
+          }
+          {
+            (items && itemsMatchingSearchCount === 0) &&
+            <p>No Artworks Available, matching "{search}".</p>
           }
         </List>
       </Wrapper>

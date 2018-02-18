@@ -12,6 +12,10 @@ const Search = styled.div`
   align-items: center;
   justify-content: space-between;
   border: ${props => props.theme.border};
+
+  @media (max-width: 580px) {
+    width: 100%;
+  }
 `
 
 const SVG = styled.svg`
