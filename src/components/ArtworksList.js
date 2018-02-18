@@ -64,7 +64,7 @@ class ArtworksList extends PureComponent {
   }
 
   render() {
-    const { items, search, favorites } = this.props
+    const { items, search } = this.props
     const itemsMatchingSearch = items.filter(({artwork_title}) => {
       const searchLower = search.toLowerCase()
       const titleLower = artwork_title.toLowerCase()
@@ -72,8 +72,6 @@ class ArtworksList extends PureComponent {
       return (titleLower.includes(searchLower)) ? true : false
     })
     const itemsMatchingSearchCount = itemsMatchingSearch.length
-
-    console.log(favorites)
 
     return (
       <Wrapper>

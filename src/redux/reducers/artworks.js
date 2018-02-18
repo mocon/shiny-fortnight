@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         search: action.search
       })
     case FAVORITE_TOGGLE:
-      let favorites = state.favorites;
+      const favorites = [...state.favorites];
       const itExists = (favorites.includes(action.itemId)) ? true : false
 
       if (itExists) {
