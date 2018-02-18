@@ -1,4 +1,3 @@
-// import * as actions from "../actions/artworks"
 import {
   FETCH_START,
   FETCH_SUCCESS,
@@ -32,10 +31,8 @@ export default (state = initialState, action) => {
 
       if (itExists) {
         const index = favorites.indexOf(action.itemId)
-
-        if (index > -1) {
-          favorites.splice(index, 1)
-        }
+        
+        if (index > -1) favorites.splice(index, 1)
       } else {
         favorites.push(action.itemId)
       }

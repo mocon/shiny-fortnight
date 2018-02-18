@@ -95,7 +95,7 @@ class ArtworksList extends PureComponent {
             ))
           }
           {
-            (items && itemsMatchingSearchCount === 0) &&
+            (items && search && itemsMatchingSearchCount === 0) &&
             <Message>No Artworks Available, matching "{search}".</Message>
           }
         </List>
