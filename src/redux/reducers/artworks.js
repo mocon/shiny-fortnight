@@ -17,15 +17,15 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_START:
-      console.log(`${FETCH_START} reducer`)
       return action;
     case FETCH_SUCCESS:
       return Object.assign({}, state, {
         items: action.items
       })
     case UPDATE_SEARCH:
-      console.log(`${UPDATE_SEARCH} reducer`)
-      return action;
+      return Object.assign({}, state, {
+        search: action.search
+      })
     case FAVORITE_TOGGLE:
       console.log(`${FAVORITE_TOGGLE} reducer`)
       return action;

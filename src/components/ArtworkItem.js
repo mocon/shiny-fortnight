@@ -6,7 +6,7 @@ const Artwork = styled.div`
   display: flex;
   flex: 1;
   min-width: 26%;
-  max-width: calc(33.3333% - 60px);
+  max-width: calc(33.3333% - 20px);
   flex-direction: column;
   background: ${props => props.theme.colors.white};
   border: ${props => props.theme.space[2]}px;

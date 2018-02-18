@@ -1,3 +1,4 @@
+/* global process */
 import * as types from "./actionTypes"
 
 const ENDPOINT_URL = `${process.env.PUBLIC_URL}/api/data.json`;
@@ -20,8 +21,11 @@ export function fetchSuccess(json) {
   }
 }
 
-export function updateSearch() {
-  //
+export function updateSearch(string) {
+  return {
+    type: types.UPDATE_SEARCH,
+    search: string
+  }
 }
 
 export function favoriteToggle() {

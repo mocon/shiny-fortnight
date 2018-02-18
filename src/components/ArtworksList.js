@@ -69,12 +69,14 @@ class ArtworksList extends PureComponent {
 
 ArtworksList.propTypes = {
   artworksActions: PropTypes.object,
-  items: PropTypes.array
+  items: PropTypes.array,
+  search: PropTypes.string
 };
 
 function mapStateToProps(state) {
   return {
-    items: state.artworks.items
+    items: state.artworks.items,
+    search: state.artworks.search
   }
 }
 
